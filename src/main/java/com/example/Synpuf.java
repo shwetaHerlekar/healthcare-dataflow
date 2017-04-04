@@ -112,6 +112,7 @@ public class Synpuf
 
 		// Then create the pipeline.
 		Pipeline p = Pipeline.create(options);
+		CloudBigtableIO.initializeForWrite(p);
 
  		lines=p.apply(TextIO.Read.from("gs://synpuf_data/DE1_0_2008_Beneficiary_Summary_File_Sample_1.csv"));
      		lines.apply(ParDo.of(new ExtractFieldsFn()))
