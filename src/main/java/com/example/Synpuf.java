@@ -82,7 +82,8 @@ public class Synpuf
 				for(String q: header){
 					byte arr1[]="sf-1".getBytes();
 					byte arr2[]=q.getBytes();
-					byte arr3[]=row.get(0).getBytes();
+					String val=row.get(0);
+					byte arr3[]=val.getBytes();
 					c.output(new Put(c.element().getBytes()).addColumn(arr1, arr2, arr3));
 					index++;
 				}
