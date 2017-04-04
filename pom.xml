@@ -116,6 +116,12 @@
             <version>3.7</version>
         </dependency>
 
+      <dependency>
+      <groupId>com.google.cloud.bigtable</groupId>
+      <artifactId>bigtable-hbase-dataflow</artifactId>
+      <version>0.9.5.1</version>
+      </dependency>
+
     <dependency>
       <groupId>com.google.api-client</groupId>
       <artifactId>google-api-client</artifactId>

@@ -17,14 +17,33 @@ import com.opencsv.CSVParser;
 import java.io.IOException;
 import java.util.ArrayList;
 
+import com.google.cloud.bigtable.hbase.BigtableConfiguration;
+
+import org.apache.hadoop.hbase.HColumnDescriptor;
+import org.apache.hadoop.hbase.HTableDescriptor;
+import org.apache.hadoop.hbase.TableName;
+import org.apache.hadoop.hbase.client.Admin;
+import org.apache.hadoop.hbase.client.Connection;
+import org.apache.hadoop.hbase.client.Get;
+import org.apache.hadoop.hbase.client.Put;
+import org.apache.hadoop.hbase.client.Result;
+import org.apache.hadoop.hbase.client.ResultScanner;
+import org.apache.hadoop.hbase.client.Scan;
+import org.apache.hadoop.hbase.client.Table;
+import org.apache.hadoop.hbase.util.Bytes;
+
 public class Synpuf
 {
 	public static PCollection<String> lines;
 	public static boolean isheader=true;
 	public static ArrayList<String> header;
+	public static ArrayList<Arraylist<String>> rows;
+	public static Arraylist<String> row;
 	static class ExtractFieldsFn extends DoFn<String, String> {
 		@Override
     		public void processElement(ProcessContext c) throws IOException{
+			
+			rows=new ArrayList<ArrayList<String>>();	
 			String line = c.element();
 			CSVParser csvParser = new CSVParser();
  			String[] parts = csvParser.parseLine(line);
@@ -33,20 +52,54 @@ public class Synpuf
 				header=new ArrayList<String>();	
 				for(String part : parts){
 					header.add(part);
-					System.out.println(part);
+					//System.out.println(part);
 				}
      			}
-      			// Output each word encountered into the output PCollection.
-      			for (String part : parts) {
-        				c.output(part);
-      			}
+      			else{
+				row=new ArrayList<String>();	
+      				for (String part : parts) {
+					row.add(part);
+        					c.output(part);
+      				}
+				rows.add(row);
+			}
     		}
 		
 	}
 
+	static final DoFn<String, Mutation> MUTATION_TRANSFORM = new DoFn<String, Mutation>() {
+ 		 private static final long serialVersionUID = 1L;
+
+		@Override
+  		public void processElement(DoFn<String, Mutation>.ProcessContext c) throws Exception {
+    			//c.output(new Put(c.element().getBytes()).addColumn(FAMILY, QUALIFIER, VALUE));
+			for(Arraylist row : rows){
+				int index=0;
+				for(String q: header){
+					c.output(new Put(c.element().getBytes()).addColumn("sf-1", q , row.get(0)));
+					index++;
+				}
+			}
+  		}
+	};
+
 	public static void main(String[] args) 
 	{
-	
+		String projectId="healthcare-12";
+		String instanceId="synpuf-01";
+		 try (Connection connection = BigtableConfiguration.connect(projectId, instanceId)) {
+		Admin admin = connection.getAdmin();
+		HTableDescriptor descriptor = new HTableDescriptor(TableName.valueOf("synpuf_beneficiary"));
+      		descriptor.addFamily(new HColumnDescriptor("sf-1"));
+		admin.createTable(descriptor);
+		Table table = connection.getTable(TableName.valueOf("synpuf_beneficiary"));
+		
+		CloudBigtableScanConfiguration config = new CloudBigtableScanConfiguration.Builder()
+    		.withProjectId("healthcare-12")
+    		.withInstanceId("synpuf-01")
+    		.withTableId("synpuf_beneficiary")
+    		.build();
+
 		// Start by defining the options for the pipeline.
 		
 		DataflowPipelineOptions options = PipelineOptionsFactory.create()
@@ -62,13 +115,13 @@ public class Synpuf
 
  		lines=p.apply(TextIO.Read.from("gs://synpuf_data/DE1_0_2008_Beneficiary_Summary_File_Sample_1.csv"));
      		lines.apply(ParDo.of(new ExtractFieldsFn()))
-     		.apply(TextIO.Write.to("gs://synpuf_data/temp.txt"));
+     		.apply(ParDo.of(MUTATION_TRANSFORM))
+		.apply(CloudBigtableIO.writeToTable(config));
 
 		p.run();
+	
+		}
 
-		//PCollection<String> lines=p.apply(TextIO.Read.from("gs://synpuf-data/DE1_0_2008_Beneficiary_Summary_File_Sample_1.csv"))
-		//PCollection<String> fields = lines.apply(ParDo.of(new ExtractFieldsFn()));
-		//p.apply(TextIO.Write.to("gs://synpuf-data/temp.txt"));
 	}
 
 }
