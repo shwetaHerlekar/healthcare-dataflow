@@ -52,7 +52,7 @@ public class Synpuf
 
  		p.apply(TextIO.Read.from("gs://synpuf_data/DE1_0_2008_Beneficiary_Summary_File_Sample_1.csv"))
      		.apply(ParDo.of(new ExtractFieldsFn()))
-     		.apply(TextIO.Write.to("gs://synpuf-data/temp.txt"));
+     		.apply(TextIO.Write.to("gs://synpuf_data/temp.txt"));
 
 		p.run();
 
