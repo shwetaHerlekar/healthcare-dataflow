@@ -17,7 +17,9 @@ import com.opencsv.CSVParser;
 import java.io.IOException;
 import java.util.ArrayList;
 
-import com.google.cloud.bigtable.hbase.*;
+import com.google.cloud.bigtable.hbase.BigtableConfiguration;
+
+import com.google.cloud.bigtable.dataflow.*;
 
 import org.apache.hadoop.hbase.HColumnDescriptor;
 import org.apache.hadoop.hbase.HTableDescriptor;
