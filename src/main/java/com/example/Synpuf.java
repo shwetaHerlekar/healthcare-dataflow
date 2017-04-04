@@ -76,7 +76,7 @@ public class Synpuf
 		@Override
   		public void processElement(DoFn<String, Mutation>.ProcessContext c) throws Exception {
     			//c.output(new Put(c.element().getBytes()).addColumn(FAMILY, QUALIFIER, VALUE));
-			for(Arraylist row : rows){
+			for(ArrayList row : rows){
 				int index=0;
 				for(String q: header){
 					c.output(new Put(c.element().getBytes()).addColumn("sf-1", q , row.get(0)));
