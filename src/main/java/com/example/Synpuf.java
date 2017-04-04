@@ -18,7 +18,7 @@ import com.google.cloud.dataflow.sdk.util.gcsfs.GcsPath;
 import com.google.cloud.dataflow.sdk.values.KV;
 import com.google.cloud.dataflow.sdk.values.PCollection;
 
-public Class Synpuf{
+public class Synpuf{
 
 	static class ExtractFieldsFn extends DoFn<String, String> {
 		@Override
