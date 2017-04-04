@@ -14,7 +14,7 @@ import com.google.cloud.dataflow.sdk.transforms.ParDo;
 import com.google.cloud.dataflow.sdk.util.gcsfs.GcsPath;
 import com.google.cloud.dataflow.sdk.values.PCollection;
 import com.opencsv.CSVParser;
-import java.io.IOException;
+import java.io.*;
 import java.util.ArrayList;
 
 import com.google.cloud.bigtable.hbase.BigtableConfiguration;
