@@ -38,7 +38,7 @@ public class Synpuf
 	public static boolean isheader=true;
 	public static ArrayList<String> header;
 	public static ArrayList<Arraylist<String>> rows;
-	public static Arraylist<String> row;
+	public static ArrayList<String> row;
 	static class ExtractFieldsFn extends DoFn<String, String> {
 		@Override
     		public void processElement(ProcessContext c) throws IOException{
