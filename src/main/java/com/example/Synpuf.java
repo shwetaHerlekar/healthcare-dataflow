@@ -15,11 +15,12 @@ import com.google.cloud.dataflow.sdk.util.gcsfs.GcsPath;
 import com.google.cloud.dataflow.sdk.values.PCollection;
 import com.opencsv.CSVParser;
 
-public class Synpuf throws Exception{
-
+public class Synpuf
+{
 	static class ExtractFieldsFn extends DoFn<String, String> {
+		
 		@Override
-    		public void processElement(ProcessContext c) {
+    		public void processElement(ProcessContext c) throws IOException{
       			String line = c.element();
 			CSVParser csvParser = new CSVParser();
  			String[] parts = csvParser.parseLine(line);
@@ -29,17 +30,19 @@ public class Synpuf throws Exception{
         				c.output(part);
       			}
     		}
-  	}
+		
+	}
 
-
-
-	public static void main(String[] args) {
+	public static void main(String[] args) 
+	{
 	
 		// Start by defining the options for the pipeline.
+		
 		DataflowPipelineOptions options = PipelineOptionsFactory.create()
     		.as(DataflowPipelineOptions.class);
 		options.setRunner(BlockingDataflowPipelineRunner.class);
 		options.setProject("healthcare-12");
+		
 		// The 'gs' URI means that this is a Google Cloud Storage path
 		options.setStagingLocation("gs://synpuf-data/staging");
 
