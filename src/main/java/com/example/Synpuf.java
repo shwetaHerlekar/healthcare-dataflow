@@ -74,7 +74,7 @@ public class Synpuf
  		 private static final long serialVersionUID = 1L;
 
 		@Override
-  		public void processElement(DoFn<String, Mutation>.ProcessContext c) throws Exception {
+  		public void processElement(DoFn<String, Mutation>.ProcessContext c) throws IOException {
     			//c.output(new Put(c.element().getBytes()).addColumn(FAMILY, QUALIFIER, VALUE));
 			
 			for(ArrayList row : rows){
@@ -87,7 +87,7 @@ public class Synpuf
   		}
 	};
 
-	public static void main(String[] args) 
+	public static void main(String[] args) throws IOException
 	{
 		String projectId="healthcare-12";
 		String instanceId="synpuf-01";
@@ -125,6 +125,7 @@ public class Synpuf
 
 		p.run();
 	
+		}catch(Exception e){
 		}
 
 	}
