@@ -21,7 +21,7 @@ public class Synpuf
 {
 	public static PCollection<String> lines;
 	public static boolean isheader=true;
-	public static List<String> header;
+	public static ArrayList<String> header;
 	static class ExtractFieldsFn extends DoFn<String, String> {
 		@Override
     		public void processElement(ProcessContext c) throws IOException{
