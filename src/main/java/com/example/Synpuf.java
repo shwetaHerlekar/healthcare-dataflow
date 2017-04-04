@@ -19,21 +19,22 @@ import java.io.IOException;
 public class Synpuf
 {
 	public static PCollection<String> lines;
-	public static PCollection<String> header; 
+	boolean isheader=true;
+	List<String> header;
 	static class ExtractFieldsFn extends DoFn<String, String> {
 		@Override
     		public void processElement(ProcessContext c) throws IOException{
 			String line = c.element();
 			CSVParser csvParser = new CSVParser();
  			String[] parts = csvParser.parseLine(line);
-			if(lines.indexOf(line)==0)
-			{
-				for (String part : parts) {
-        					header.add(part);
-					System.out.println(part);
-      				}	
-			}
-     
+			if(isheader){
+				isheader=false;
+				header=new ArrayList<String>();	
+				for(String part : parts){
+					header.add();
+					System.out.println(part)
+				}
+     			}
       			// Output each word encountered into the output PCollection.
       			for (String part : parts) {
         				c.output(part);
