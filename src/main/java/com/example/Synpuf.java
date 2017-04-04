@@ -32,7 +32,7 @@ public class Synpuf
 				isheader=false;
 				header=new ArrayList<String>();	
 				for(String part : parts){
-					header.add();
+					header.add(part);
 					System.out.println(part);
 				}
      			}
