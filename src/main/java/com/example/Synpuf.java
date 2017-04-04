@@ -45,7 +45,7 @@ public class Synpuf
 		options.setProject("healthcare-12");
 		
 		// The 'gs' URI means that this is a Google Cloud Storage path
-		options.setStagingLocation("gs://synpuf-data");
+		options.setStagingLocation("gs://synpuf_data/staging1");
 
 		// Then create the pipeline.
 		Pipeline p = Pipeline.create(options);
