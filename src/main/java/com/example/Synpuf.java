@@ -17,7 +17,7 @@ import com.opencsv.CSVParser;
 import java.io.IOException;
 import java.util.ArrayList;
 
-import com.google.cloud.bigtable.hbase.BigtableConfiguration;
+import com.google.cloud.bigtable.hbase.*;
 
 import org.apache.hadoop.hbase.HColumnDescriptor;
 import org.apache.hadoop.hbase.HTableDescriptor;
@@ -37,7 +37,7 @@ public class Synpuf
 	public static PCollection<String> lines;
 	public static boolean isheader=true;
 	public static ArrayList<String> header;
-	public static ArrayList<Arraylist<String>> rows;
+	public static ArrayList<ArrayList<String>> rows;
 	public static ArrayList<String> row;
 	static class ExtractFieldsFn extends DoFn<String, String> {
 		@Override
