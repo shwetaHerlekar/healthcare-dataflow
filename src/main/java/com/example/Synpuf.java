@@ -15,12 +15,13 @@ import com.google.cloud.dataflow.sdk.util.gcsfs.GcsPath;
 import com.google.cloud.dataflow.sdk.values.PCollection;
 import com.opencsv.CSVParser;
 import java.io.IOException;
+import java.util.ArrayList;
 
 public class Synpuf
 {
 	public static PCollection<String> lines;
-	boolean isheader=true;
-	List<String> header;
+	public static boolean isheader=true;
+	public static List<String> header;
 	static class ExtractFieldsFn extends DoFn<String, String> {
 		@Override
     		public void processElement(ProcessContext c) throws IOException{
@@ -32,7 +33,7 @@ public class Synpuf
 				header=new ArrayList<String>();	
 				for(String part : parts){
 					header.add();
-					System.out.println(part)
+					System.out.println(part);
 				}
      			}
       			// Output each word encountered into the output PCollection.
