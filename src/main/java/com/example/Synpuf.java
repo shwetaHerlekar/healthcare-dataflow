@@ -80,7 +80,7 @@ public class Synpuf
 			for(ArrayList row : rows){
 				int index=0;
 				for(String q: header){
-					c.output(new Put(c.element().getBytes()).addColumn(family, q , row.get(0)));
+					c.output(new Put(c.element().getBytes("UTF-8")).addColumn(family.getBytes("UTF-8"), q.getBytes("UTF-8"), row.get(0).getBytes("UTF-8")));
 					index++;
 				}
 			}
