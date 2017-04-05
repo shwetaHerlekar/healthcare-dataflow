@@ -67,8 +67,8 @@ public class Synpuf
 			
 			for(ArrayList row : rows){
 				int index=0;
-				for(String q: header[0:3]){
-					c.output(new Put(c.element().getBytes()).addColumn("sf-1".getBytes(), q.getBytes(), String.valueOf(row.get(index)).getBytes()));
+				while(index<3){
+					c.output(new Put(c.element().getBytes()).addColumn("sf-1".getBytes(), String.valueOf(header.get(index)).getBytes(), String.valueOf(row.get(index)).getBytes()));
 					index++;
 				}
 			}
