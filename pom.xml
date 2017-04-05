@@ -99,6 +99,14 @@
         </plugin>
       </plugins>
     </pluginManagement>
+	<build>
+  <resources>
+    <resource>
+      <directory>src/main/resources</directory>
+      <filtering>true</filtering>
+    </resource>
+  </resources>
+</build>
   </build>
 
   <dependencies>
