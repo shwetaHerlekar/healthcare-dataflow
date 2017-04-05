@@ -22,17 +22,6 @@ import com.google.cloud.bigtable.dataflow.*;
 import com.google.cloud.bigtable.dataflow.CloudBigtableScanConfiguration;
 import com.google.cloud.bigtable.config.BigtableOptions;
 
-import org.apache.hadoop.hbase.HColumnDescriptor;
-import org.apache.hadoop.hbase.HTableDescriptor;
-import org.apache.hadoop.hbase.TableName;
-import org.apache.hadoop.hbase.HBaseConfiguration;
-import org.apache.hadoop.hbase.client.Admin;
-import org.apache.hadoop.hbase.client.Connection;
-import org.apache.hadoop.hbase.client.ConnectionFactory;
-import org.apache.hadoop.hbase.client.Put;
-import org.apache.hadoop.hbase.client.Table;
-import org.apache.hadoop.hbase.client.Mutation;
-import org.apache.hadoop.conf.Configuration;
 
 public class Synpuf
 {
@@ -78,7 +67,7 @@ public class Synpuf
 			
 			for(ArrayList row : rows){
 				int index=0;
-				for(String q: header){
+				for(String q: header[0:3]){
 					c.output(new Put(c.element().getBytes()).addColumn("sf-1".getBytes(), q.getBytes(), String.valueOf(row.get(index)).getBytes()));
 					index++;
 				}
@@ -91,19 +80,19 @@ public class Synpuf
 		String projectId="healthcare-12";
 		String instanceId="synpuf-01";
 		
-		Configuration config1 = HBaseConfiguration.create();
+		/*Configuration config1 = HBaseConfiguration.create();
 		org.apache.hadoop.hbase.client.Connection connection = ConnectionFactory.createConnection(config1);
 		Admin admin = connection.getAdmin();
 		
 		HTableDescriptor descriptor = new HTableDescriptor(TableName.valueOf("synpuf_beneficiary"));
       		descriptor.addFamily(new HColumnDescriptor("sf-1"));
 		admin.createTable(descriptor);
-		Table table = connection.getTable(TableName.valueOf("synpuf_beneficiary"));
+		Table table = connection.getTable(TableName.valueOf("synpuf_beneficiary"));*/
 		
 		CloudBigtableScanConfiguration config = new CloudBigtableScanConfiguration.Builder()
     		.withProjectId("healthcare-12")
     		.withInstanceId("synpuf-01")
-    		.withTableId("synpuf_beneficiary")
+    		.withTableId("synpuf_1")
     		.build();
 
 		// Start by defining the options for the pipeline.
