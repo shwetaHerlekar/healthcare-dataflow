@@ -135,8 +135,8 @@
 	  
 	  <dependency>
     <groupId>com.google.cloud.bigtable</groupId>
-    <artifactId>bigtable-hbase-1.1</artifactId>
-    <version>0.9.5</version>
+    <artifactId>bigtable-hbase-1.2</artifactId>
+    <version>0.9.4</version>
     </dependency>
 
 	<dependency>
