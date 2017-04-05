@@ -100,7 +100,7 @@ public class Synpuf
 					int index=0;
 					while(index<3){
 						//c.output(new Put(c.element().getBytes()).addColumn("sf-1".getBytes(), String.valueOf(header.get(index)).getBytes(), String.valueOf(row.get(index)).getBytes()));
-						String t="sf-1"+String.valueOf(header.get(index))+String.valueOf(row.get(index))
+						String t="sf-1"+String.valueOf(header.get(index))+String.valueOf(row.get(index));
 						c.output(t);
 						index++;
 					}
