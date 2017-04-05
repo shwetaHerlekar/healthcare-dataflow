@@ -113,30 +113,20 @@
 
   <dependencies>
     <!-- Adds a dependency on a specific version of the Dataflow SDK. -->
-    <dependency>
-      <groupId>com.google.cloud.dataflow</groupId>
-      <artifactId>google-cloud-dataflow-java-sdk-all</artifactId>
-      <version>[1.0.0, 1.99)</version>
-    </dependency>
-
+   
       <dependency>
             <groupId>com.opencsv</groupId>
             <artifactId>opencsv</artifactId>
             <version>3.7</version>
         </dependency>
 
-     <dependency>
-    <groupId>com.google.cloud.bigtable</groupId>
-    <artifactId>bigtable-hbase-dataflow</artifactId>
-    <version>0.9.5.1</version>
-    </dependency>
-
     <dependency>
     <groupId>com.google.cloud.bigtable</groupId>
     <artifactId>bigtable-hbase-1.2</artifactId>
     <version>0.9.5.1</version>
     </dependency>
-    <dependency>
+    
+      <dependency>
      <groupId>org.apache.hbase</groupId>
      <artifactId>hbase-client</artifactId>
      <version>1.2.1</version>
