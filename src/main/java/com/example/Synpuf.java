@@ -66,11 +66,11 @@ public class Synpuf
 		
 	}*/
 
-	static final DoFn<String, String> MUTATION_TRANSFORM = new DoFn<String, String>() {
+	static final DoFn<String, Mutation> MUTATION_TRANSFORM = new DoFn<String, Mutation>() {
  		 private static final long serialVersionUID = 1L;
 
 		@Override
-  		public void processElement(DoFn<String, String>.ProcessContext c) throws IOException {
+  		public void processElement(DoFn<String, Mutation>.ProcessContext c) throws IOException {
     			//c.output(new Put(c.element().getBytes()).addColumn(FAMILY, QUALIFIER, VALUE));
 			
 			/*for(ArrayList row : rows){
@@ -99,9 +99,9 @@ public class Synpuf
       				}
 					int index=0;
 					while(index<3){
-						//c.output(new Put(c.element().getBytes()).addColumn("sf-1".getBytes(), String.valueOf(header.get(index)).getBytes(), String.valueOf(row.get(index)).getBytes()));
-						String t="sf-1"+String.valueOf(header.get(index))+String.valueOf(row.get(index));
-						c.output(t);
+						c.output(new Put(c.element().getBytes()).addColumn("sf-1".getBytes(), String.valueOf(header.get(index)).getBytes(), String.valueOf(row.get(index)).getBytes()));
+						//String t="sf-1"+String.valueOf(header.get(index))+String.valueOf(row.get(index));
+						//c.output(t);
 						index++;
 					}
     		}
@@ -144,9 +144,9 @@ public class Synpuf
 
  		lines=p.apply(TextIO.Read.from("gs://synpuf_data/DE1_0_2008_Beneficiary_Summary_File_Sample_1.csv"));
      	lines.apply(ParDo.of(MUTATION_TRANSFORM))
-		//.apply(CloudBigtableIO.writeToTable(config));
-		.apply(TextIO.Write.named("tmp2.txt")
-                                  .to("gs://synpuf_data/outputData"));
+		.apply(CloudBigtableIO.writeToTable(config));
+		//.apply(TextIO.Write.named("tmp2.txt")
+         //                         .to("gs://synpuf_data/outputData"));
 		p.run();
 
 	}
