@@ -131,17 +131,22 @@
     <version>0.9.5.1</version>
     </dependency>
 
-     <dependency>
+    <dependency>
     <groupId>com.google.cloud.bigtable</groupId>
     <artifactId>bigtable-hbase-1.2</artifactId>
-    <version>0.9.1</version>
+    <version>0.9.5.1</version>
+    </dependency>
+    <dependency>
+     <groupId>org.apache.hbase</groupId>
+     <artifactId>hbase-client</artifactId>
+     <version>1.2.1</version>
      </dependency>
 
        <dependency>
-            <groupId>io.netty</groupId>
-            <artifactId>netty-tcnative-boringssl-static</artifactId>
-            <version>1.1.33.Fork19</version>
-        </dependency>
+       <groupId>io.netty</groupId>
+      <artifactId>netty-tcnative-boringssl-static</artifactId>
+      <version>1.1.33.Fork19</version>
+      </dependency>
 
     <dependency>
       <groupId>com.google.api-client</groupId>
