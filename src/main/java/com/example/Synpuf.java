@@ -18,7 +18,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 import com.google.cloud.bigtable.hbase1_2.BigtableConnection;
-import com.google.cloud.bigtable.dataflow.CloudBigtableIO;
+import com.google.cloud.bigtable.dataflow.*;
 import com.google.cloud.bigtable.dataflow.CloudBigtableScanConfiguration;
 import com.google.cloud.bigtable.config.BigtableOptions;
 
@@ -92,7 +92,7 @@ public class Synpuf
 		String instanceId="synpuf-01";
 		
 		Configuration config1 = HBaseConfiguration.create();
-		Connection connection = ConnectionFactory.createConnection(config1);
+		org.apache.hadoop.hbase.client.Connection connection = ConnectionFactory.createConnection(config1);
 		Admin admin = connection.getAdmin();
 		
 		HTableDescriptor descriptor = new HTableDescriptor(TableName.valueOf("synpuf_beneficiary"));
