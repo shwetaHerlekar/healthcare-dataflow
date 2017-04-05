@@ -99,7 +99,9 @@ public class Synpuf
       				}
 					int index=0;
 					while(index<3){
-						c.output(new Put(c.element().getBytes()).addColumn("sf-1".getBytes(), String.valueOf(header.get(index)).getBytes(), String.valueOf(row.get(index)).getBytes()));
+						//c.output(new Put(c.element().getBytes()).addColumn("sf-1".getBytes(), String.valueOf(header.get(index)).getBytes(), String.valueOf(row.get(index)).getBytes()));
+						String t="sf-1"+String.valueOf(header.get(index))+String.valueOf(row.get(index))
+						c.output(t);
 						index++;
 					}
     		}
@@ -142,8 +144,9 @@ public class Synpuf
 
  		lines=p.apply(TextIO.Read.from("gs://synpuf_data/DE1_0_2008_Beneficiary_Summary_File_Sample_1.csv"));
      	lines.apply(ParDo.of(MUTATION_TRANSFORM))
-		.apply(CloudBigtableIO.writeToTable(config));
-
+		//.apply(CloudBigtableIO.writeToTable(config));
+		.apply(TextIO.Write.named("tmp2.txt")
+                                  .to("gs://synpuf_data/outputData"));
 		p.run();
 
 	}
