@@ -66,11 +66,11 @@ public class Synpuf
 		
 	}*/
 
-	static final DoFn<String> MUTATION_TRANSFORM = new DoFn<String>() {
+	static final DoFn<String, String> MUTATION_TRANSFORM = new DoFn<String, String>() {
  		 private static final long serialVersionUID = 1L;
 
 		@Override
-  		public void processElement(DoFn<String>.ProcessContext c) throws IOException {
+  		public void processElement(DoFn<String, String>.ProcessContext c) throws IOException {
     			//c.output(new Put(c.element().getBytes()).addColumn(FAMILY, QUALIFIER, VALUE));
 			
 			/*for(ArrayList row : rows){
