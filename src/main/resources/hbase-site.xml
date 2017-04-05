@@ -1,0 +1,14 @@
+<configuration>
+  <property>
+    <name>hbase.client.connection.impl</name>
+    <value>com.google.cloud.bigtable.hbase1_2.BigtableConnection</value>
+  </property>
+  <property>
+    <name>google.bigtable.instance.id</name>
+    <value>synpuf-01</value>
+  </property>
+  <property>
+    <name>google.bigtable.project.id</name>
+    <value>healthcare-12</value>
+  </property>
+</configuration>

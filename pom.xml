@@ -101,15 +101,6 @@
     </pluginManagement>
   </build>
 
-    <repositories>
-    <repository>
-      <id>snapshots-repo</id>
-      <url>https://oss.sonatype.org/content/repositories/snapshots</url>
-      <releases><enabled>false</enabled></releases>
-      <snapshots><enabled>true</enabled></snapshots>
-    </repository>
-   </repositories>
-
   <dependencies>
     <!-- Adds a dependency on a specific version of the Dataflow SDK. -->
       <dependency>
@@ -130,12 +121,6 @@
             <version>3.7</version>
         </dependency>
 
-    <dependency>
-    <groupId>com.google.cloud.bigtable</groupId>
-    <artifactId>bigtable-hbase-1.2</artifactId>
-    <version> 0.2.5-SNAPSHOT</version>
-    </dependency>
-    
       <dependency>
      <groupId>org.apache.hbase</groupId>
      <artifactId>hbase-client</artifactId>

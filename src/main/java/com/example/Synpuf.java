@@ -17,23 +17,21 @@ import com.opencsv.CSVParser;
 import java.io.IOException;
 import java.util.ArrayList;
 
-import com.google.cloud.bigtable.hbase.BigtableConfiguration;
+//import com.google.cloud.bigtable.hbase.BigtableConfiguration;
 
 import com.google.cloud.bigtable.dataflow.*;
 
 import org.apache.hadoop.hbase.HColumnDescriptor;
 import org.apache.hadoop.hbase.HTableDescriptor;
 import org.apache.hadoop.hbase.TableName;
+import org.apache.hadoop.hbase.HBaseConfiguration;
 import org.apache.hadoop.hbase.client.Admin;
 import org.apache.hadoop.hbase.client.Connection;
-import org.apache.hadoop.hbase.client.Get;
+import org.apache.hadoop.hbase.client.ConnectionFactory;
 import org.apache.hadoop.hbase.client.Put;
-import org.apache.hadoop.hbase.client.Result;
-import org.apache.hadoop.hbase.client.ResultScanner;
-import org.apache.hadoop.hbase.client.Scan;
 import org.apache.hadoop.hbase.client.Table;
-import org.apache.hadoop.hbase.util.Bytes;
 import org.apache.hadoop.hbase.client.Mutation;
+import org.apache.hadoop.conf.Configuration;
 
 public class Synpuf
 {
@@ -91,7 +89,8 @@ public class Synpuf
 	{
 		String projectId="healthcare-12";
 		String instanceId="synpuf-01";
-		 try (Connection connection = BigtableConfiguration.connect(projectId, instanceId)) {
+		Configuration config = HBaseConfiguration.create();
+		Connection connection = ConnectionFactory.createConnection(config);
 		Admin admin = connection.getAdmin();
 		HTableDescriptor descriptor = new HTableDescriptor(TableName.valueOf("synpuf_beneficiary"));
       		descriptor.addFamily(new HColumnDescriptor("sf-1"));
@@ -124,9 +123,6 @@ public class Synpuf
 		.apply(CloudBigtableIO.writeToTable(config));
 
 		p.run();
-	
-		}catch(Exception e){
-		}
 
 	}
 
