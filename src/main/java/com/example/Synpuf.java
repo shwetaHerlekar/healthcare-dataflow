@@ -22,6 +22,17 @@ import com.google.cloud.bigtable.dataflow.*;
 import com.google.cloud.bigtable.dataflow.CloudBigtableScanConfiguration;
 import com.google.cloud.bigtable.config.BigtableOptions;
 
+import org.apache.hadoop.hbase.HColumnDescriptor;
+import org.apache.hadoop.hbase.HTableDescriptor;
+import org.apache.hadoop.hbase.TableName;
+import org.apache.hadoop.hbase.HBaseConfiguration;
+import org.apache.hadoop.hbase.client.Admin;
+import org.apache.hadoop.hbase.client.Connection;
+import org.apache.hadoop.hbase.client.ConnectionFactory;
+import org.apache.hadoop.hbase.client.Put;
+import org.apache.hadoop.hbase.client.Table;
+import org.apache.hadoop.hbase.client.Mutation;
+import org.apache.hadoop.conf.Configuration;
 
 public class Synpuf
 {
@@ -92,7 +103,7 @@ public class Synpuf
 		CloudBigtableScanConfiguration config = new CloudBigtableScanConfiguration.Builder()
     		.withProjectId("healthcare-12")
     		.withInstanceId("synpuf-01")
-    		.withTableId("synpuf_1")
+    		.withTableId("synpuf_beneficiary")
     		.build();
 
 		// Start by defining the options for the pipeline.
