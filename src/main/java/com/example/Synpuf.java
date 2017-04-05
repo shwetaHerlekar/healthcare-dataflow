@@ -17,9 +17,7 @@ import com.opencsv.CSVParser;
 import java.io.IOException;
 import java.util.ArrayList;
 
-//import com.google.cloud.bigtable.hbase.BigtableConfiguration;
-
-import com.google.cloud.bigtable.dataflow.*;
+import com.google.cloud.bigtable.dataflow.CloudBigtableIO;
 
 import org.apache.hadoop.hbase.HColumnDescriptor;
 import org.apache.hadoop.hbase.HTableDescriptor;
@@ -89,9 +87,11 @@ public class Synpuf
 	{
 		String projectId="healthcare-12";
 		String instanceId="synpuf-01";
+		
 		Configuration config1 = HBaseConfiguration.create();
 		Connection connection = ConnectionFactory.createConnection(config1);
 		Admin admin = connection.getAdmin();
+		
 		HTableDescriptor descriptor = new HTableDescriptor(TableName.valueOf("synpuf_beneficiary"));
       		descriptor.addFamily(new HColumnDescriptor("sf-1"));
 		admin.createTable(descriptor);
