@@ -39,13 +39,12 @@ public class Synpuf
 	public static PCollection<String> lines;
 	public static boolean isheader=true;
 	public static ArrayList<String> header;
-	public static ArrayList<ArrayList<String>> rows;
 	public static ArrayList<String> row;
-	static class ExtractFieldsFn extends DoFn<String, String> {
+	
+	/*static class ExtractFieldsFn extends DoFn<String, String> {
 		@Override
     		public void processElement(ProcessContext c) throws IOException{
 			
-			rows=new ArrayList<ArrayList<String>>();	
 			String line = c.element();
 			CSVParser csvParser = new CSVParser();
  			String[] parts = csvParser.parseLine(line);
@@ -56,18 +55,16 @@ public class Synpuf
 					header.add(part);
 					//System.out.println(part);
 				}
-     			}
-      			else{
-				row=new ArrayList<String>();	
+     		}
+      		else{
+			row=new ArrayList<String>();	
       				for (String part : parts) {
 					row.add(part);
-        					c.output(part);
+        			c.output(part);
       				}
-				rows.add(row);
-			}
     		}
 		
-	}
+	}*/
 
 	static final DoFn<String, Mutation> MUTATION_TRANSFORM = new DoFn<String, Mutation>() {
  		 private static final long serialVersionUID = 1L;
@@ -76,13 +73,37 @@ public class Synpuf
   		public void processElement(DoFn<String, Mutation>.ProcessContext c) throws IOException {
     			//c.output(new Put(c.element().getBytes()).addColumn(FAMILY, QUALIFIER, VALUE));
 			
-			for(ArrayList row : rows){
+			/*for(ArrayList row : rows){
 				int index=0;
 				while(index<3){
 					c.output(new Put(c.element().getBytes()).addColumn("sf-1".getBytes(), String.valueOf(header.get(index)).getBytes(), String.valueOf(row.get(index)).getBytes()));
 					index++;
 				}
-			}
+			}*/
+			
+			String line = c.element();
+			CSVParser csvParser = new CSVParser();
+ 			String[] parts = csvParser.parseLine(line);
+			if(isheader){
+				isheader=false;
+				header=new ArrayList<String>();	
+				for(String part : parts){
+					header.add(part);
+					//System.out.println(part);
+				}
+     		}
+      		else{
+					row=new ArrayList<String>();	
+      				for (String part : parts) {
+					row.add(part);
+        			//c.output(part);
+      				}
+					int index=0;
+					while(index<3){
+						c.output(new Put(c.element().getBytes()).addColumn("sf-1".getBytes(), String.valueOf(header.get(index)).getBytes(), String.valueOf(row.get(index)).getBytes()));
+						index++;
+					}
+    		}
   		}
 	};
 
@@ -121,8 +142,7 @@ public class Synpuf
 		CloudBigtableIO.initializeForWrite(p);
 
  		lines=p.apply(TextIO.Read.from("gs://synpuf_data/DE1_0_2008_Beneficiary_Summary_File_Sample_1.csv"));
-     		lines.apply(ParDo.of(new ExtractFieldsFn()))
-     		.apply(ParDo.of(MUTATION_TRANSFORM))
+     	lines.apply(ParDo.of(MUTATION_TRANSFORM))
 		.apply(CloudBigtableIO.writeToTable(config));
 
 		p.run();
