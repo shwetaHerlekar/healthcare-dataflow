@@ -103,7 +103,7 @@ public class Synpuf
 		CloudBigtableScanConfiguration config = new CloudBigtableScanConfiguration.Builder()
     		.withProjectId("healthcare-12")
     		.withInstanceId("synpuf-01")
-    		.withTableId("synpuf_beneficiary")
+    		.withTableId("synpuf-1")
     		.build();
 
 		// Start by defining the options for the pipeline.
