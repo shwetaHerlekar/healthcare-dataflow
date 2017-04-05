@@ -38,7 +38,7 @@ public class Synpuf
 {
 	public static PCollection<String> lines;
 	public static boolean isheader=true;
-	public static ArrayList<String> header;
+	public static ArrayList<String> header=new ArrayList<String>();
 	public static ArrayList<String> row;
 	
 	/*static class ExtractFieldsFn extends DoFn<String, String> {
@@ -140,10 +140,10 @@ public class Synpuf
 		Pipeline p = Pipeline.create(options);
 		CloudBigtableIO.initializeForWrite(p);
 
-		header=new ArrayList<String>();	
  		lines=p.apply(TextIO.Read.from("gs://synpuf_data/DE1_0_2008_Beneficiary_Summary_File_Sample_1.csv"));
      	lines.apply(ParDo.of(MUTATION_TRANSFORM))
 		.apply(CloudBigtableIO.writeToTable(config));
+
 		p.run();
 
 	}
