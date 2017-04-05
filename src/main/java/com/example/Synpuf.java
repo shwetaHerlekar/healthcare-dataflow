@@ -86,7 +86,6 @@ public class Synpuf
  			String[] parts = csvParser.parseLine(line);
 			if(isheader){
 				isheader=false;
-				header=new ArrayList<String>();	
 				for(String part : parts){
 					header.add(part);
 					//System.out.println(part);
@@ -141,10 +140,12 @@ public class Synpuf
 		Pipeline p = Pipeline.create(options);
 		CloudBigtableIO.initializeForWrite(p);
 
+		header=new ArrayList<String>();	
  		lines=p.apply(TextIO.Read.from("gs://synpuf_data/DE1_0_2008_Beneficiary_Summary_File_Sample_1.csv"));
      	lines.apply(ParDo.of(MUTATION_TRANSFORM))
-		.apply(CloudBigtableIO.writeToTable(config));
-
+		//apply(CloudBigtableIO.writeToTable(config));
+		.apply(TextIO.Write.named("temp1.txt")
+                                  .to("gs://synpuf_data/outpu2"));
 		p.run();
 
 	}
