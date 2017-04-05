@@ -20,6 +20,7 @@ import java.util.ArrayList;
 import com.google.cloud.bigtable.hbase1_2.BigtableConnection;
 import com.google.cloud.bigtable.dataflow.CloudBigtableIO;
 import com.google.cloud.bigtable.dataflow.CloudBigtableScanConfiguration;
+import com.google.cloud.bigtable.config.BigtableOptions;
 
 import org.apache.hadoop.hbase.HColumnDescriptor;
 import org.apache.hadoop.hbase.HTableDescriptor;
