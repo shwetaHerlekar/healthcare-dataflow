@@ -113,7 +113,12 @@
 
   <dependencies>
     <!-- Adds a dependency on a specific version of the Dataflow SDK. -->
-   
+      <dependency>
+    <groupId>com.google.cloud.dataflow</groupId>
+    <artifactId>google-cloud-dataflow-java-sdk-all</artifactId>
+    <version>1.9.0</version>
+    </dependency>   
+
       <dependency>
             <groupId>com.opencsv</groupId>
             <artifactId>opencsv</artifactId>
