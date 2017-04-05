@@ -18,6 +18,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 import com.google.cloud.bigtable.dataflow.CloudBigtableIO;
+import com.google.cloud.bigtable.dataflow.CloudBigtableScanConfiguration;
 
 import org.apache.hadoop.hbase.HColumnDescriptor;
 import org.apache.hadoop.hbase.HTableDescriptor;
