@@ -89,8 +89,8 @@ public class Synpuf
 	{
 		String projectId="healthcare-12";
 		String instanceId="synpuf-01";
-		Configuration config = HBaseConfiguration.create();
-		Connection connection = ConnectionFactory.createConnection(config);
+		Configuration config1 = HBaseConfiguration.create();
+		Connection connection = ConnectionFactory.createConnection(config1);
 		Admin admin = connection.getAdmin();
 		HTableDescriptor descriptor = new HTableDescriptor(TableName.valueOf("synpuf_beneficiary"));
       		descriptor.addFamily(new HColumnDescriptor("sf-1"));
